@@ -143,11 +143,19 @@ void CallMenu(StackElement* mainSp, StackElement* subSp) // Основное м�
             {
             case 1:
                 int number;
-                cout << "Какое число хотите ввести? Число: ";
-                number = CheckedInput();
-                newSp = new StackElement;
-                newSp->info = number;
-                Push(&mainSp, newSp);
+                try
+                {
+                    newSp = new StackElement;
+                    cout << "Какое число хотите ввести? Число: ";
+                    number = CheckedInput();
+                    newSp->info = number;
+                    Push(&mainSp, newSp);
+                }
+                catch (const std::exception&)
+                {
+                    cout << "Стек заполнен!";
+                    break;
+                }
                 break;
             case 2:
                 if (!isEmpty(subSp))
@@ -199,9 +207,17 @@ void CallMenu(StackElement* mainSp, StackElement* subSp) // Основное м�
             count = CheckedInput(0,100);
             for (size_t i = 0; i < count; i++)
             {
-                StackElement* newSp = new StackElement;
-                newSp->info = rand();
-                Push(&mainSp,newSp);
+                try
+                {
+                    StackElement* newSp = new StackElement;
+                    newSp->info = rand();
+                    Push(&mainSp, newSp);
+                }
+                catch (const std::exception&)
+                {
+                    cout << "Стек заполнен!\n\n";
+                    break;
+                }
             }
             cout << "\n\n";
             break;
